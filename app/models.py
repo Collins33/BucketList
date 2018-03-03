@@ -26,7 +26,7 @@ class Bucketlist(db.Model):
         db.session.commit()
 
     @staticmethod
-    def get_all()
+    def get_all():
         #will query the database for all the bucketlists
         return Bucketlist.query.all()
 
