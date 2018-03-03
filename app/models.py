@@ -8,7 +8,7 @@ class Bucketlist(db.Model):
     __tablename__ = 'bucketlists'#the name of the table in the db
 
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(255))
+    name=db.Column(db.String(300))
     date_created=db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(
         db.DateTime, default=db.func.current_timestamp(),
