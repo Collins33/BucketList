@@ -47,3 +47,25 @@ class BucketlistTestCase(unittest.TestCase):
         self.assertEqual(results.status_code,200)
 
         self.assertIn('Get into andela', str(results.data))
+
+
+    def test_api_can_get_bucketlist_by_id(self):
+        #test if the api can get buckelist based on id
+        
+        #make a post request with the url
+        rv=self.client().post('/bucketlists', data=self.bucketlist)
+        #check status of the post request
+        self.assertEqual(rv.status_code, 201)
+        #convert response to json
+
+        #this allows us to access the id
+        result_in_json=json.loads(rv.data.decode('utf-8').replace("'", "\""))
+
+        #make the get request using the id
+        result=self.client().get('/bucketlists/{}'.format(result_in_json["id"]))
+
+        #check status of get request
+        self.assertEqual(result.status_code,200)
+
+        #verify content of get request
+        self.assertIn("Get into andela",str(result.data))
