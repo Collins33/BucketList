@@ -53,7 +53,7 @@ class BucketlistTestCase(unittest.TestCase):
         #test if the api can get buckelist based on id
         
         #make a post request with the url
-        rv=self.client().post('/bucketlists', data=self.bucketlist)
+        rv=self.client().post('/bucketlists/', data=self.bucketlist)
         #check status of the post request
         self.assertEqual(rv.status_code, 201)
         #convert response to json
@@ -96,7 +96,7 @@ class BucketlistTestCase(unittest.TestCase):
         #check status of the request
         self.assertEqual(rv.status_code,201)
 
-        res=self.client().delete('/bucketlisys/1')
+        res=self.client().delete('/bucketlists/1')
         #check status of the delete request
         self.assertEqual(res.status_code,200)
 
