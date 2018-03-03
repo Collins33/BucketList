@@ -87,3 +87,20 @@ class BucketlistTestCase(unittest.TestCase):
 
         #verify content of get request
         self.assertIn("Get into andela",str(result.data))
+
+
+
+    def test_bucketlist_deletion(self):
+        #make a post request
+        rv=self.client().post('/bucketlists/', data={"name", "Eat pray and love"})
+        #check status of the request
+        self.assertEqual(rv.status_code,201)
+
+        res=self.client().delete('/bucketlisys/1')
+        #check status of the delete request
+        self.assertEqual(res.status_code,200)
+
+        #test to see if it exists, it should return 404
+        results=self.client.get('/bucketlists/1')
+        #status should be 404
+        self.assertEqual(results.status_code,404)    
