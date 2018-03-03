@@ -92,7 +92,7 @@ class BucketlistTestCase(unittest.TestCase):
 
     def test_bucketlist_deletion(self):
         #make a post request
-        rv=self.client().post('/bucketlists/', data={"name", "Eat pray and love"})
+        rv=self.client().post('/bucketlists/', data={"name":"Eat pray and love"})
         #check status of the request
         self.assertEqual(rv.status_code,201)
 
