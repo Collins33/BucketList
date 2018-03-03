@@ -103,4 +103,20 @@ class BucketlistTestCase(unittest.TestCase):
         #test to see if it exists, it should return 404
         results=self.client.get('/bucketlists/1')
         #status should be 404
-        self.assertEqual(results.status_code,404)    
+        self.assertEqual(results.status_code,404)
+
+
+
+
+    def tearDown(self):
+        """teardown all initialized variables."""
+        with self.app.app_context():
+            # drop all tables
+            db.session.remove()
+            db.drop_all()
+
+
+
+# Make the tests conveniently executable
+if __name__ == "__main__":
+    unittest.main()                    
