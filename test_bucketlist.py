@@ -64,6 +64,24 @@ class BucketlistTestCase(unittest.TestCase):
         #make the get request using the id
         result=self.client().get('/bucketlists/{}'.format(result_in_json["id"]))
 
+
+    def test_api_can_be_edited(self):
+        #test if the api can edit the data
+
+        #make a post request
+        rv=self.client().post('/bucketlists/', data={"name":"Eat, pray and love"})
+        #assert the status of the post request
+        self.assertEqual(rv.status_code, 201)
+
+        #put request to edit the data
+        rv=self.client().put('/bucketlists/1', data={"name":"Dont just eat,but pray and love"})
+        #assert the status of the put request
+        self.assertEqual(rv.status_code, 200)
+
+        results=self.client().get('/bucketlists/1')
+
+        self.assertIn("Dont just eat", str(results.data))    
+
         #check status of get request
         self.assertEqual(result.status_code,200)
 
