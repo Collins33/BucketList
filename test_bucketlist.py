@@ -42,7 +42,7 @@ class BucketlistTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
 
         #make get request to get all saved bucketlists
-        results=self.client.get('/bucketlists/')
+        results=self.client().get('/bucketlists/')
         #ensure the get request was successful
         self.assertEqual(results.status_code,200)
 
@@ -63,6 +63,9 @@ class BucketlistTestCase(unittest.TestCase):
 
         #make the get request using the id
         result=self.client().get('/bucketlists/{}'.format(result_in_json["id"]))
+
+        #assert response
+        self.assertIn("Get into andela", str(result.data))
 
 
     def test_api_can_be_edited(self):
