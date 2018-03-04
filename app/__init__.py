@@ -22,6 +22,23 @@ def create_app(config_name):
     #connect it to the db
     db.init_app(app)
 
+    #import the authentication blueprint and register it to the app
+    from .auth import auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @app.route('/bucketlists/', methods=["POST", "GET"])
     def bucketlists():
         #check the type of request it receives
