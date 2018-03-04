@@ -49,11 +49,33 @@ class User(db.Model):
                 current_app.config().get('SECRET'),
                 algorithm='HS256'
             )
+            #return a byte string
             return jwt_string
 
         except Exception as e:
             #return an error in string format if an exception occurs
-            return str(e)         
+            return str(e)
+
+
+
+    @staticmethod
+    def decode_token(token):
+        #takes in a token as argument
+        #checks if the token is valid
+        #if it is valid, return the user id as payload
+        try:
+            #first decode the token
+            payload=jwt.decode(token, current_app.config.get('SECRET'))
+            return payload['sub']
+
+        except jwt.ExpiredSignatureError:
+            #return error string if token is expired
+            return "The token is expired, please login to get new token"
+
+        except jwt.InvalidTokenError:
+            #return error if token is invalid
+            return "Invalid token. Please register or login"   
+
 
 
 
