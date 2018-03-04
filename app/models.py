@@ -1,5 +1,8 @@
 from app import db#import the db
 from flask_bcrypt import Bcrypt
+import jwt
+from datetime import datetime, timedelta
+from flask import current_app
 
 
 #create the user model
@@ -27,7 +30,30 @@ class User(db.Model):
     def save(self):
         #save a user to the database
         db.session.add()
-        db.session.commit()    
+        db.session.commit()
+
+
+    #method to generate user token
+    #takes user_id as argument
+    def generate_token(self,user_id):
+        try:
+            #set up the payload with expiration date
+            payload={
+                'exp':datetime.utcnow() +timedelta(minutes=5),
+                'iat':datetime.utcnow(),
+                'sub':user_id
+            }
+            #create a byte string token using payload and secret key
+            jwt_string=jwt.encode(
+                payload,
+                current_app.config().get('SECRET'),
+                algorithm='HS256'
+            )
+            return jwt_string
+
+        except Exception as e:
+            #return an error in string format if an exception occurs
+            return str(e)         
 
 
 
@@ -63,7 +89,8 @@ class Bucketlist(db.Model):
     def get_all_bucketlists(user_id):
         #will query the database for all the bucketlists of a user
         return Bucketlist.query.filter_by(created_by=user_id)
-
+    
+    @staticmethod
     def get_all():
         #will query database for all bucketlists
         return Bucketlist.query.all()    
