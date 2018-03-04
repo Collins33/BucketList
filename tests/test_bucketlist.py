@@ -32,21 +32,21 @@ class BucketlistTestCase(unittest.TestCase):
         self.assertIn("Get into andela",str(res.data))
 
 
-    def test_api_can_get_all_bucketlists(self):
-         #test if the api can get all the bucketlists
+    # def test_api_can_get_all_bucketlists(self):
+    #      #test if the api can get all the bucketlists
 
-         #make a post request
-        res=self.client().post('/bucketlists/', data=self.bucketlist)
+    #      #make a post request
+    #     res=self.client().post('/bucketlists/', data=self.bucketlist)
 
-        #ensure the post request was successful
-        self.assertEqual(res.status_code, 201)
+    #     #ensure the post request was successful
+    #     self.assertEqual(res.status_code, 201)
 
-        #make get request to get all saved bucketlists
-        results=self.client().get('/bucketlists/')
-        #ensure the get request was successful
-        self.assertEqual(results.status_code,200)
+    #     #make get request to get all saved bucketlists
+    #     results=self.client().get('/bucketlists/')
+    #     #ensure the get request was successful
+    #     self.assertEqual(results.status_code,200)
 
-        self.assertIn('Get into andela', str(results.data))
+    #     self.assertIn('Get into andela', str(results.data))
 
 
     def test_api_can_get_bucketlist_by_id(self):
